@@ -173,8 +173,8 @@
         <button id="share" class="ghost">Copy share link</button>
       </div>
     </div>
-    <div class="note">Fixed settings: square size 8, lifespan 80, labels: both. The grid centers itself like it owns the
-      place.</div>
+    <!-- <div class="note">Fixed settings: square size 8, lifespan 80, labels: both. The grid centers itself like it owns the
+      place.</div> -->
   </header>
 
   <main>
@@ -184,7 +184,8 @@
   </main>
 
   <footer>
-    <div>Keyboard: <span class="kbd">R</span> render • <span class="kbd">S</span> save</div>
+    <!-- <div>Keyboard: <span class="kbd">R</span> render • <span class="kbd">S</span> save</div> -->
+    <div></div>
     <div>Made with mild existential dread.</div>
   </footer>
 
@@ -325,7 +326,7 @@
       ctx.fillStyle = '#cfd3db';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'alphabetic';
-      ctx.fillText(`${years} years, ${weeks} weeks lived so far  -and-  ${FIXED.lifespan - years - 1} years, ${52 - weeks} weeks remaining`, originX + 12, originY + packH );
+      ctx.fillText(`${years} years, ${weeks} weeks lived so far  -and-  ${FIXED.lifespan - years - 1} years, ${52 - weeks} weeks remaining`, originX + 12, originY + packH);
     }
 
     function renderFromInputs(pushURL = true) {
