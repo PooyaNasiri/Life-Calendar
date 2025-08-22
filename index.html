@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,34 +16,141 @@
       --ink: #111113;
       --filled: #e8e8ef;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      margin: 0; background: var(--bg); color: var(--text);
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
       font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      display: grid; grid-template-rows: auto 1fr auto; gap: 16px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 16px;
     }
-    header, footer { padding: 16px; }
-    header { display: grid; gap: 12px; background: var(--panel); border-bottom: 1px solid var(--grid); }
-    .title { font-size: 18px; font-weight: 700; }
-    .controls { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; }
-    .control { display: grid; gap: 6px; }
-    label { color: var(--muted); font-size: 12px; }
-    input, select, button {
-      background: #0f0f11; color: var(--text); border: 1px solid #2a2a2e; border-radius: 10px; padding: 10px 12px;
+
+    header,
+    footer {
+      padding: 16px;
     }
-    button { cursor: pointer; font-weight: 600; }
-    button.primary { background: var(--accent); border-color: var(--accent); color: white; }
-    button.ghost { background: transparent; }
-    main { padding: 8px 16px 16px; }
-    .canvas-wrap { position: relative; width: 100%; height: calc(100vh - 210px); background: var(--ink); border: 1px solid var(--grid); border-radius: 14px; overflow: hidden; }
-    canvas { display: block; width: 100%; height: 100%; }
-    .note { color: var(--muted); font-size: 12px; }
-    footer { color: var(--muted); display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--grid); background: var(--panel); }
-    .kbd { border: 1px solid var(--grid); padding: 2px 6px; border-radius: 6px; background: #111113; }
-    @media (max-width: 520px){ .canvas-wrap { height: calc(100vh - 260px); } }
+
+    header {
+      display: grid;
+      gap: 12px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--grid);
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      align-items: end;
+    }
+
+    .control {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    input {
+      background: #dbdbdb;
+      color: var(--ink);
+      border: 1px solid #2a2a2e;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    button {
+      background: #494949;
+      color: var(--text);
+      border: 1px solid #929292;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    main {
+      padding: 8px 16px 16px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 40%;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--ink);
+      border: 1px solid var(--grid);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--grid);
+      background: var(--panel);
+    }
+
+    .kbd {
+      border: 1px solid var(--grid);
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #111113;
+    }
+
+    @media (max-width: 520px) {
+      .canvas-wrap {
+        height: calc(100vh - 260px);
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="title">Life Calendar</div>
@@ -50,23 +158,6 @@
       <div class="control">
         <label for="dob">Birthdate</label>
         <input id="dob" type="date" />
-      </div>
-      <div class="control">
-        <label for="lifespan">Lifespan (years)</label>
-        <input id="lifespan" type="number" min="1" max="120" value="80" />
-      </div>
-      <div class="control">
-        <label for="size">Square size</label>
-        <input id="size" type="range" min="6" max="16" step="1" value="10" />
-      </div>
-      <div class="control">
-        <label for="labels">Labels</label>
-        <select id="labels">
-          <option value="both" selected>Row & column</option>
-          <option value="rows">Row only</option>
-          <option value="cols">Column only</option>
-          <option value="none">None</option>
-        </select>
       </div>
       <div class="control">
         <label>&nbsp;</label>
@@ -81,7 +172,8 @@
         <button id="share" class="ghost">Copy share link</button>
       </div>
     </div>
-    <div class="note">52 columns = weeks in a year. Filled squares are weeks already spent. Time is rude like that.</div>
+    <div class="note">Fixed settings: square size 8, lifespan 80, labels: both. The grid centers itself like it owns the
+      place.</div>
   </header>
 
   <main>
@@ -101,33 +193,37 @@
     const ctx = grid.getContext("2d");
 
     const dobInput = $("#dob");
-    const lifespanInput = $("#lifespan");
-    const sizeInput = $("#size");
-    const labelsSelect = $("#labels");
 
     const renderBtn = $("#render");
     const downloadBtn = $("#download");
     const shareBtn = $("#share");
 
-    // Helpers
-    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+    // Fixed config per request
+    const FIXED = {
+      lifespan: 80,
+      square: 8,
+      labels: 'both'
+    };
 
-    function parseDate(str){
+    // Helpers
+    function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+
+    function parseDate(str) {
       // yyyy-mm-dd -> Date at local noon to dodge DST edges
-      if(!str) return null;
-      const [y,m,d] = str.split('-').map(Number);
-      if(!y || !m || !d) return null;
-      const dt = new Date(y, m-1, d, 12, 0, 0, 0);
+      if (!str) return null;
+      const [y, m, d] = str.split('-').map(Number);
+      if (!y || !m || !d) return null;
+      const dt = new Date(y, m - 1, d, 12, 0, 0, 0);
       return isNaN(dt.getTime()) ? null : dt;
     }
 
-    function diffInDays(a, b){
+    function diffInDays(a, b) {
       // floor day difference in local time
-      const msPerDay = 24*60*60*1000;
+      const msPerDay = 24 * 60 * 60 * 1000;
       return Math.floor((a - b) / msPerDay);
     }
 
-    function livedParts(birth, today){
+    function livedParts(birth, today) {
       const days = diffInDays(today, birth);
       const avgYear = 365.2425;
       const years = Math.floor(days / avgYear);
@@ -136,72 +232,77 @@
       return { days, years, weeks };
     }
 
-    function setCanvasSize(cols, rows, s, labelMode){
-      const space = s * 0.2; // gap
-      const leftPad = (labelMode === 'both' || labelMode === 'rows') ? 56 : 16;
-      const topPad  = (labelMode === 'both' || labelMode === 'cols') ? 28 : 16;
-      const rightPad = 16, bottomPad = 16;
-      const w = Math.ceil(cols * (s + space) + leftPad + rightPad);
-      const h = Math.ceil(rows * (s + space) + topPad + bottomPad);
-      // scale for device pixel ratio for crispness
+    function setCanvasToContainer() {
+      const wrap = grid.parentElement;
+      const rect = wrap.getBoundingClientRect();
       const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      grid.width = w * dpr; grid.height = h * dpr;
-      grid.style.width = w + 'px'; grid.style.height = h + 'px';
+      grid.width = rect.width * dpr; grid.height = rect.height * dpr;
+      grid.style.width = rect.width + 'px'; grid.style.height = rect.height + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      return { w, h, leftPad, topPad, space };
+      return { w: rect.width, h: rect.height };
     }
 
-    function drawGrid({birth, lifespan, square, labelMode}){
+    function drawGrid({ birth }) {
       const today = new Date();
-      if(birth > today){ alert('Please pick a birthdate in the past.'); return; }
-      lifespan = clamp(lifespan, 1, 120);
-      square = clamp(square, 6, 16);
+      if (birth > today) { alert('Please pick a birthdate in the past.'); return; }
 
-      const cols = 52, rows = lifespan;
-      const { w, h, leftPad, topPad, space } = setCanvasSize(cols, rows, square, labelMode);
+      const cols = 52, rows = FIXED.lifespan;
+      const s = FIXED.square;
+      const gap = s * 0.3; // gap between squares
+
+      // Label paddings (since labels are shown for both)
+      const labelLeft = 56; // room for "Year N"
+      const labelTop = 28;  // room for 1..52
+      const labelRight = 16, labelBottom = 24;
+
+      // Compute pack size (grid + labels)
+      const packW = Math.ceil(cols * (s + gap) + labelLeft + labelRight);
+      const packH = Math.ceil(rows * (s + gap) + labelTop + labelBottom);
+
+      // Resize canvas to container
+      const { w: cw, h: ch } = setCanvasToContainer();
+
+      // Center the pack inside the canvas
+      const originX = Math.max(0, Math.floor((cw - packW) / 2));
+      const originY = Math.max(0, Math.floor((ch - packH) / 2));
 
       // background
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink');
-      ctx.fillRect(0,0,w,h);
+      ctx.fillRect(0, 0, cw, ch);
 
-      // Title overlay
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted');
       ctx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
 
       const { years, weeks } = livedParts(birth, today);
 
       // column labels
-      if(labelMode === 'both' || labelMode === 'cols'){
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'alphabetic';
-        for(let c=0;c<cols;c++){
-          const x = leftPad + c * (square + space) + square/2;
-          ctx.fillStyle = c % 2 ? '#8b8f97' : '#cfd3db';
-          ctx.fillText(String(c+1), x, topPad - 10);
-        }
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      for (let c = 0; c < cols; c++) {
+        const x = originX + labelLeft + c * (s + gap) + s / 2;
+        ctx.fillStyle = c % 2 ? '#8b8f97' : '#cfd3db';
+        ctx.fillText(String(c + 1), x, originY + labelTop - 10);
       }
 
       // row labels
-      if(labelMode === 'both' || labelMode === 'rows'){
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        for(let r=0;r<rows;r++){
-          const y = topPad + r * (square + space) + square/2;
-          ctx.fillStyle = '#cfd3db';
-          ctx.fillText('Year ' + (r+1), 8, y);
-        }
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      for (let r = 0; r < rows; r++) {
+        const y = originY + labelTop + r * (s + gap) + s / 2;
+        ctx.fillStyle = '#cfd3db';
+        ctx.fillText('Year ' + (r + 1), originX + 8, y);
       }
 
       // cells
-      for(let r=0;r<rows;r++){
-        for(let c=0;c<cols;c++){
-          const x = leftPad + c * (square + space);
-          const y = topPad + r * (square + space);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = originX + labelLeft + c * (s + gap);
+          const y = originY + labelTop + r * (s + gap);
           const filled = (r < years) || (r === years && c < weeks);
           ctx.fillStyle = filled ? getComputedStyle(document.documentElement).getPropertyValue('--filled') : '#0f0f11';
-          ctx.fillRect(x, y, square, square);
+          ctx.fillRect(x, y, s, s);
           ctx.strokeStyle = '#2a2a2e';
-          ctx.strokeRect(x+0.5, y+0.5, square-1, square-1);
+          ctx.strokeRect(x + 0.5, y + 0.5, s - 1, s - 1);
         }
       }
 
@@ -209,34 +310,32 @@
       ctx.fillStyle = '#cfd3db';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'alphabetic';
-      ctx.fillText(`${years} years, ${weeks} weeks lived so far`, 12, h - 10);
+      ctx.fillText(`${years} years, ${weeks} weeks lived so far`, originX + 12, originY + packH - 8);
+      ctx.fillText(`${FIXED.lifespan - years - 1} years, ${52 - weeks} weeks remaining`, originX + 12, originY + packH + 6);
     }
 
-    function renderFromInputs(pushURL=true){
+    function renderFromInputs(pushURL = true) {
       const birth = parseDate(dobInput.value);
-      if(!birth){ alert('Set your birthdate first.'); return; }
-      const lifespan = Number(lifespanInput.value);
-      const square = Number(sizeInput.value);
-      const labelMode = labelsSelect.value;
-      drawGrid({ birth, lifespan, square, labelMode });
-      if(pushURL){
-        const q = new URLSearchParams({ dob: dobInput.value, ls: lifespan, sz: square, lb: labelMode });
+      if (!birth) { alert('Set your birthdate first.'); return; }
+      drawGrid({ birth });
+      if (pushURL) {
+        const q = new URLSearchParams({ dob: dobInput.value });
         history.replaceState(null, '', `?${q.toString()}`);
       }
     }
 
-    function downloadPNG(){
+    function downloadPNG() {
       const a = document.createElement('a');
       a.download = 'life-calendar.png';
       a.href = grid.toDataURL('image/png');
       a.click();
     }
 
-    function copyShareLink(){
+    function copyShareLink() {
       const url = location.href;
       navigator.clipboard.writeText(url).then(() => {
         shareBtn.textContent = 'Copied link ✓';
-        setTimeout(()=> shareBtn.textContent = 'Copy share link', 1200);
+        setTimeout(() => shareBtn.textContent = 'Copy share link', 1200);
       }, () => alert('Clipboard said no. Paste it yourself.'));
     }
 
@@ -246,25 +345,26 @@
     shareBtn.addEventListener('click', copyShareLink);
 
     window.addEventListener('keydown', e => {
-      if(e.key.toLowerCase() === 'r') renderFromInputs(false);
-      if(e.key.toLowerCase() === 's') downloadPNG();
+      if (e.key.toLowerCase() === 'r') renderFromInputs(false);
+      if (e.key.toLowerCase() === 's') downloadPNG();
+    });
+
+    // Handle resize to keep centered
+    window.addEventListener('resize', () => {
+      const dob = dobInput.value;
+      if (dob) renderFromInputs(false);
+      else setCanvasToContainer();
     });
 
     // Boot: read query params to prefill
-    (function init(){
+    (function init() {
       const q = new URLSearchParams(location.search);
       const dob = q.get('dob');
-      const ls = q.get('ls');
-      const sz = q.get('sz');
-      const lb = q.get('lb');
-      if(dob) dobInput.value = dob;
-      if(ls) lifespanInput.value = ls;
-      if(sz) sizeInput.value = sz;
-      if(lb) labelsSelect.value = lb;
-
-      // If dob present, auto-render
-      if(dob) renderFromInputs(false);
+      if (dob) dobInput.value = dob;
+      setCanvasToContainer();
+      if (dob) renderFromInputs(false);
     })();
   </script>
 </body>
+
 </html>
