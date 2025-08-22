@@ -202,7 +202,7 @@
     // Fixed config per request
     const FIXED = {
       lifespan: 80,
-      square: 8,
+      // square: 8,
       labels: 'both'
     };
 
@@ -247,32 +247,46 @@
       const today = new Date();
       if (birth > today) { alert('Please pick a birthdate in the past.'); return; }
 
+      // fit squares to whatever canvas size we have
       const cols = 52, rows = FIXED.lifespan;
-      const s = FIXED.square;
-      const gap = s * 0.3; // gap between squares
 
-      // Label paddings (since labels are shown for both)
-      const labelLeft = 56; // room for "Year N"
-      const labelTop = 28;  // room for 1..52
-      const labelRight = 16, labelBottom = 24;
-
-      // Compute pack size (grid + labels)
-      const packW = Math.ceil(cols * (s + gap) + labelLeft + labelRight);
-      const packH = Math.ceil(rows * (s + gap) + labelTop + labelBottom);
-
-      // Resize canvas to container
+      // label padding (kept same)
+      const labelLeft = 56, labelTop = 28, labelRight = 16, labelBottom = 24;
       const { w: cw, h: ch } = setCanvasToContainer();
 
-      // Center the pack inside the canvas
+      // inner drawable area
+      const innerW = cw - (labelLeft + labelRight);
+      const innerH = ch - (labelTop + labelBottom);
+
+      // first pass: rough size without gaps
+      let s = Math.floor(Math.min(innerW / cols, innerH / rows));
+
+      // gap proportional to square, but never less than 1px
+      let gap = Math.max(1, Math.floor(s * 0.25));
+
+      // second pass: refine size accounting for gaps
+      s = Math.floor(Math.min(
+        (innerW - (cols - 1) * gap) / cols,
+        (innerH - (rows - 1) * gap) / rows
+      ));
+
+      // final pack size using fitted s + gap
+      const packW = cols * s + (cols - 1) * gap + labelLeft + labelRight;
+      const packH = rows * s + (rows - 1) * gap + labelTop + labelBottom;
+
+      // center
       const originX = Math.max(0, Math.floor((cw - packW) / 2));
       const originY = Math.max(0, Math.floor((ch - packH) / 2));
+
 
       // background
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink');
       ctx.fillRect(0, 0, cw, ch);
 
       ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted');
-      ctx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
+      // ctx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
+      ctx.font = (s < 9 ? '10px' : '12px') + ' system-ui, -apple-system, Segoe UI, Roboto, Arial';
+
 
       const { years, weeks } = livedParts(birth, today);
 
@@ -311,8 +325,7 @@
       ctx.fillStyle = '#cfd3db';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'alphabetic';
-      ctx.fillText(`${years} years, ${weeks} weeks lived so far`, originX + 12, originY + packH - 8);
-      ctx.fillText(`${FIXED.lifespan - years - 1} years, ${52 - weeks} weeks remaining`, originX + 12, originY + packH + 6);
+      ctx.fillText(`${years} years, ${weeks} weeks lived so far  -and-  ${FIXED.lifespan - years - 1} years, ${52 - weeks} weeks remaining`, originX + 12, originY + packH );
     }
 
     function renderFromInputs(pushURL = true) {
