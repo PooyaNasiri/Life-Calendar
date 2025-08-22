@@ -3,6 +3,9 @@
 ## Description
 The Life Calendar project is a simple application built using Python and tkinter library. It is a profound exploration of one's existence, encapsulated in a digital visualization. Through the stark representation of time passing, it invites introspection into the fleeting nature of life. As users witness their lifespan unfold before them in a grid of squares, each representing a week, they are prompted to contemplate the depths of their own mortality and the significance of each passing moment. This project serves as a poignant reminder of the preciousness of time and encourages users to reflect on their journey, evoking a sense of depth and introspection seldom found in digital applications.
 
+## Demo Website
+You can try the web version here: [Life Calendar Demo](https://pooyanasiri.github.io/Life-Calendar/)
+
 ## Features
 - Visualization of lifespan in a calendar format.
 - Customizable birthdate selection.
@@ -21,3 +24,4 @@ The Life Calendar project is a simple application built using Python and tkinter
 
 ## Contributing
 Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
